@@ -1,4 +1,5 @@
 admin // password
 dan // password123abc
 john // password123abc
+lise // password123abc
 staff-bob // password123abc
