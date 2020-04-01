@@ -3,9 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import date
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 
 
 class Book(models.Model):
@@ -81,46 +78,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-
-
-# fat model approach
-# alt: put in model?/better solution?, why in view /w different end points?, make more dry?
-# todo fix refresh bug (form resubmission, redirect)
-def action_response(request):
-    user = get_object_or_404(Profile, user__username=request.user)
-
-    if request.method == 'POST' and "loan-book" in request.POST:
-        overdues = BookLoan.objects.filter(user__user__username=request.user).filter(overdue=True)
-        if user.book_loans.count() > 9 or overdues:
-            return 'Active book loans reached or one or more loans are overdue !'
-        else:
-            pk = request.POST["loan-book"]
-            loan = BookLoan()
-            loan.book = get_object_or_404(Book, pk=pk)
-            loan.user = user
-            loan.save()
-            return f"Checked out book: {loan.book}"
-
-    if request.method == 'POST' and "return-book" in request.POST:
-        pk = request.POST["return-book"]
-        loan = get_object_or_404(BookLoan, pk=pk)
-        loan.delete()
-        return f"Checked in book: {loan.book}"
-
-    if request.method == 'POST' and "loan-magazine" in request.POST:
-        overdues = MagazineLoan.objects.filter(user__user__username=request.user).filter(overdue=True)
-        if user.magazine_loans.count() > 2 or overdues:
-            return 'Active magazine loans reached or one or more loans are overdue !'
-        else:
-            pk = request.POST["loan-magazine"]
-            loan = MagazineLoan()
-            loan.magazine = get_object_or_404(Magazine, pk=pk)
-            loan.user = user
-            loan.save()
-            return f"Checked out magazine: {loan.magazine}"
-
-    if request.method == 'POST' and "return-magazine" in request.POST:
-        pk = request.POST["return-magazine"]
-        loan = get_object_or_404(MagazineLoan, pk=pk)
-        loan.delete()
-        return f"Checked in magazine: {loan.magazine}"

@@ -2,12 +2,11 @@
 
 {% block content %}
     <h4>Your loans</h4>
-    <div class="msg-box">{% if action_res %} {{ action_res }} {% endif %}</div>
     <div class="split-width">
         <div class="list-content">
             <p class="list-content-title">Active book loans - {{ book_loans.count }} / 10</p>
             {% for book_loan in book_loans %}
-                <form action="." method="POST">
+                <form action="{% url 'library_app:return_book' %}" method="POST">
                     {% csrf_token %}
                     <div>
                         <div>
@@ -27,7 +26,7 @@
         <div class="list-content">
             <p class="list-content-title">Active magazine loans - {{ magazine_loans.count }} / 3</p>
             {% for magazine_loan in magazine_loans %}
-                <form action="." method="POST">
+                <form action="{% url 'library_app:return_magazine' %}" method="POST">
                     {% csrf_token %}
                     <div>
                         <div>
@@ -50,7 +49,7 @@
         <div class="list-content">
             <p class="list-content-title">Books</p>
             {% for book in books %}
-                <form action="." method="POST">
+                <form action="{% url 'library_app:loan_book' %}" method="POST">
                     {% csrf_token %}
                     <div>
                         <div>
@@ -67,7 +66,7 @@
         <div class="list-content">
             <p class="list-content-title">Magazines</p>
             {% for magazine in magazines %}
-                <form action="." method="POST">
+                <form action="{% url 'library_app:loan_magazine' %}" method="POST">
                     {% csrf_token %}
                     <div>
                         <div>
