@@ -25,7 +25,10 @@ def index(request):
     return render(request, 'library_app/index.html', context)
 
 
+@login_required(login_url='/users/login/')
 def overdue(request):
+    if not request.user.is_staff:
+        return HttpResponseRedirect(reverse('library_app:index'))
     book_loans = BookLoan.objects.filter(overdue=True)
     magazine_loans = MagazineLoan.objects.filter(overdue=True)
     context = {
