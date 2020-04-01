@@ -55,7 +55,7 @@ class MagazineLoan(models.Model):
     overdue = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user} - {self.magazine} - {self.date.strftime('%d-%m-%Y %H:%M:%S')}"
+        return f"{self.user} - {self.magazine} - {self.date.strftime('%d-%m-%Y %H:%M:%S')} - overdue: {self.overdue}"
 
     def remaining_days(self):
         days = (date.today()-self.date.date()).days
@@ -67,8 +67,7 @@ class MagazineLoan(models.Model):
 
 
 # extending User
-# signal - hooking the create_user_profile and save_user_profile methods to the User model on save
-# single db query - users = User.objects.all().select_related('profile')
+# signal - hooking the create_user_profile and save_user_profile methods to the User model
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
