@@ -1,0 +1,85 @@
+{% extends "library_app/base.html" %}
+
+{% block content %}
+    <h4>Your loans</h4>
+    <div class="msg-box">{% if action_res %} {{ action_res }} {% endif %}</div>
+    <div class="split-width">
+        <div class="list-content">
+            <p class="list-content-title">Active book loans - {{ book_loans.count }} / 10</p>
+            {% for book_loan in book_loans %}
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <div>{{ book_loan.book }}</div>
+                            <div class="countdown-text">
+                                {{ book_loan.remaining_days }}
+                            </div>
+                        </div>
+                        <button>Return</button>
+                    </div>
+                    <input type="hidden" name="return-book" value="{{ book_loan.pk }}">
+                </form>
+                <div class="cat-splitter"></div>
+            {% endfor %}
+        </div>
+
+        <div class="list-content">
+            <p class="list-content-title">Active magazine loans - {{ magazine_loans.count }} / 3</p>
+            {% for magazine_loan in magazine_loans %}
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <div>{{ magazine_loan.magazine }}</div>
+                            <div class="countdown-text">{{ magazine_loan.remaining_days }}</div>
+                        </div>
+                        <button>Return</button>
+                    </div>
+                    <input type="hidden" name="return-magazine" value="{{ magazine_loan.pk}}">
+                </form>
+                <div class="cat-splitter"></div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <hr class="hr1">
+
+    <h4>Checkout</h4>
+    <div class="split-width">
+        <div class="list-content">
+            <p class="list-content-title">Books</p>
+            {% for book in books %}
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <div>{{ book }}</div>
+                        </div>
+                        <button>Loan</button>
+                    </div>
+                    <input type="hidden" name="loan-book" value="{{ book.pk }}">
+                </form>
+                <div class="cat-splitter"></div>
+            {% endfor %}
+        </div>
+
+        <div class="list-content">
+            <p class="list-content-title">Magazines</p>
+            {% for magazine in magazines %}
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <div>{{ magazine }}</div>
+                        </div>
+                        <button>Loan</button>
+                    </div>
+                    <input type="hidden" name="loan-magazine" value="{{ magazine.pk }}">
+                </form>
+                <div class="cat-splitter"></div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

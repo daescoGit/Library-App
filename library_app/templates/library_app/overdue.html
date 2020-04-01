@@ -1,0 +1,24 @@
+{% extends "library_app/base.html" %}
+
+{% block content %}
+    <h4>Overdue book loans:</h4>
+    {% for bookloan in book_loans %}
+        <div>
+            User: {{ bookloan.user }} -
+            {{ bookloan.book }} -
+            {{ bookloan.date }} -
+            {{ bookloan.remaining_days }}
+        </div>
+    {% endfor %}
+
+    <h4>Overdue magazine loans:</h4>
+    {% for magazineloan in magazine_loans %}
+        <div>
+            User: {{ magazineloan.user }} -
+            {{ magazineloan.magazine }} -
+            {{ magazineloan.date }} -
+            {{ magazineloan.remaining_days }}
+        </div>
+    {% endfor %}
+
+{% endblock %}

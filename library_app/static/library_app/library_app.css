@@ -1,0 +1,76 @@
+body {
+    padding: 0 15px;
+    font-family: Arial;
+    font-size: 0.9em;
+}
+
+.split-width {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    max-width: max-content;
+}
+
+.list-content {
+    background-color: aliceblue;
+    padding: 0 15px 30px 15px;
+    display: grid;
+    row-gap: 10px;
+    align-content: start;
+    border-radius: 7px;
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+}
+
+.list-content div {
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: auto auto;
+}
+
+.list-content div div {
+    grid-template-columns: auto;
+}
+
+.list-content div button {
+    margin-left: 20px;
+    background-color: steelblue;
+    border: 2px outset rgba(146,181,210,0.6);
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.list-content-title {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    font-weight: bold;
+    color: steelblue;
+}
+
+hr.hr1 {
+    margin-block-start: 2em;
+    margin-block-end: 2em;
+}
+
+.cat-splitter {
+    border-bottom: 1px solid lightgray;
+}
+
+.countdown-text {
+    color: #b40202;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.msg-box {
+    margin-bottom: 10px;
+    color: orange;
+    font-style: italic;
+    font-weight: bold;
+}
