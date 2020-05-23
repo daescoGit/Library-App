@@ -1,5 +1,5 @@
 # Library-App
-A basic library system api made with Django
+A basic library system app made with Django
 
 Dummy users: Admin // password -  dan // password123abc - staff-bob // password123abc
 
